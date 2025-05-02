@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>마이 페이지</title>
+</head>
+<body>
+  <div class="" th:each="member : ${mypage}">
+    <h2 th:text="${member.name}">회원명</h2>
+    <div class="" th:text="|${member.username}|">관리자</div>
+  </div>
+</body>
+</html>

@@ -15,10 +15,10 @@ public class MenuController {
 
     private final MenuRepository menuRepository;
 
-    @GetMapping("/menus")
-    public String getMenuPage(Model model) {
-        List<Menu> menus = menuRepository.findAll();
-        model.addAttribute("menus", menus);
+    @GetMapping("/selectMenuDetail")
+    public String getMenuDetail(Model model) {
+        List<Menu> menuDetailList = menuRepository.findAll();
+        model.addAttribute("menus", menuDetailList);
         return "menus";  // templates/menus.html
     }
 }
