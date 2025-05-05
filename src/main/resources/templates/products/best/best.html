@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>NOVA</title>
+    <title>BEST</title>
     <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
@@ -11,23 +11,10 @@
 <div th:replace="common/header :: header"></div>
 
 <main>
-    <!-- 메인 배너  -->
-    <section class="banner">
-        <div class="items">
-            <a href="#"><img src="/img/black.png" alt="Banner_1"></a>
-        </div>
-        <div class="items">
-            <a href="#"><img src="/img/blue.png" alt="Banner_2"></a>
-        </div>
-        <div class="items">
-            <a href="#"><img src="/img/green.png" alt="Banner_3"></a>
-        </div>
-    </section>
+    <h1 class="items-name">BEST ITEMS</h1>
 
-    <!-- 신상  -->
-    <section class="main-section">
-        <h2>NEW</h2>
-        <div class="main-container">
+    <section class="product-section">
+        <div class="product-container">
             <div class="items">
                 <a href="#"><img src="/img/blue.png" alt="New_1"></a>
                 <li class="product">반팔 티셔츠 (3 colors)</li>
@@ -56,10 +43,8 @@
         </div>
     </section>
 
-    <!-- 브랜드 pick -->
-    <sec1tion class="product-section">
-        <h2>BRAND PICK</h2>
-        <div class="main-container">
+    <section class="product-section">
+        <div class="product-container">
             <div class="items">
                 <a href="#"><img src="/img/blue.png" alt="New_1"></a>
                 <li class="product">반팔 티셔츠 (3 colors)</li>
@@ -86,12 +71,11 @@
                 <li class="price">18,000원</li>
             </div>
         </div>
-    </sec1tion>
+    </section>
 
     <!-- 베스트 -->
-    <sec1tion class="product-section">
-        <h2>BEST 5</h2>
-        <div class="main-container">
+    <section class="product-section">
+        <div class="product-container">
             <div class="items">
                 <a href="#"><img src="/img/blue.png" alt="New_1"></a>
                 <li class="product">반팔 티셔츠 (3 colors)</li>
@@ -118,7 +102,7 @@
                 <li class="price">18,000원</li>
             </div>
         </div>
-    </sec1tion>
+    </section>
 </main>
 
 <!-- include footer -->
