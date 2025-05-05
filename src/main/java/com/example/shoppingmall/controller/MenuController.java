@@ -19,6 +19,6 @@ public class MenuController {
     public String getMenuDetail(Model model) {
         List<Menu> menuDetailList = menuRepository.findAll();
         model.addAttribute("menus", menuDetailList);
-        return "menus";  // templates/menus.html
+        return "menus";  // templates/menu.html
     }
 }
