@@ -270,3 +270,79 @@ footer {
     text-decoration: underline;
     color: #000;
 }
+
+/* 회원가입 스타일 */
+.sign-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 80px 0;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+.sign-container .sign-title {
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.sign-container .sign-form {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    /*gap: 15px;*/
+}
+
+.sign-form input[type="text"],
+.sign-form input[type="password"] {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    font-size: 14px;
+}
+
+.sign-form button {
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.sign-form .login-btn {
+    background-color: black;
+    color: white;
+    margin-top: 10px;
+}
+
+.sign-form .login-btn:hover {
+    background-color: #333;
+}
+
+.sign-form li {
+    list-style-type: none;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+/* 필수값 표기 */
+.required::after {
+    content: "*";
+    color: red;
+    margin-left: 4px;
+}
+
+/*input:invalid,*/
+.input-error {
+    border: 1px solid red;
+    background-color: #ffe5e5;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}

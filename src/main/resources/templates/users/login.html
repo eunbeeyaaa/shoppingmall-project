@@ -21,12 +21,18 @@
                 <a href="#">비밀번호 찾기</a>
             </div>
             <button type="submit" class="login-btn">LOGIN</button>
-            <button type="button" class="sign-btn">SIGN</button>
+            <button type="button" id="sign-btn" class="sign-btn">SIGN</button>
         </form>
     </div>
 </main>
-
 <!-- include footer -->
 <div th:replace="common/footer :: footer"></div>
+
+<script th:inline="javascript">
+    document.getElementById('sign-btn').addEventListener('click', () => {
+        window.location.href = '/sign';
+    });
+</script>
+
 </body>
 </html>
