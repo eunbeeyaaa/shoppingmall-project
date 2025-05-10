@@ -33,8 +33,10 @@
     </div>
 </main>
 
+<div id="search-container" style="display: none;"></div>
 <!-- include footer -->
 <div th:replace="common/footer :: footer"></div>
+<script src="/js/common.js"></script>
 
 <script th:inline="javascript">
     document.getElementById('sign-form').addEventListener('submit', (e) => {

@@ -10,4 +10,10 @@ public class MainController {
     public String home() {
         return "main";  // templates/main.html을 반환
     }
+
+    @GetMapping("/search")
+    public String search() {
+        return "search";
+    }
+
 }
