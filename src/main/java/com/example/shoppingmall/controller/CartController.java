@@ -9,7 +9,7 @@ import java.security.Principal;
 @Controller
 public class CartController {
     @GetMapping("/cart")
-    String CartController() {
+    public String CartController() {
         return "/users/cart";
     }
 
