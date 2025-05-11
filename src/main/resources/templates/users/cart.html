@@ -1,0 +1,118 @@
+<!-- src/main/resources/templates/main.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>CART</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<!-- include header -->
+<div th:replace="common/header :: header"></div>
+
+<main>
+    <div class="cart-container">
+        <h2 class="cart-title">CART</h2>
+
+        <!-- 카트가 비어있을 때 -->
+        <div class="cart-empty" style="display: none;">장바구니가 비어있습니다.</div>
+
+        <!-- 상품이 있을 때 -->
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>DETAIL</td>
+                    <td>PRICE</td>
+                    <td>QUANTITY</td>
+                    <td>TOTAL</td>
+                    <td>CHOOSE</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td class="product-detail">
+                        <img src="/img/blue.png">
+                        <div class="product-info">
+                            반팔 티셔츠 (3 colors) <br/>
+                            [옵션] M, White
+                        </div>
+                    </td>
+                    <td class="price">18,000</td>
+                    <td class="quantity-controls">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">1</span>
+                        <button class="btn-plus">+</button>
+                    </td>
+                    <td class="total">18,000</td>
+                    <td>
+                        <button class="order-btn">ORDER</button><br>
+                        <button class="delete-btn">DELETE</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="summary">
+            <div>PRICE: <span class="summary-total">0</span></div>
+            <div>DISCOUNT: <span class="summary-discount">0</span></div>
+            <div>TOTAL: <span class="summary-final">0</span></div>
+        </div>
+
+        <div class="cart-actions">
+            <button>Order Selected Items</button>
+            <button class="all-order">Order All Items</button>
+        </div>
+    </div>
+
+</main>
+<div id="search-container" style="display: none;"></div>
+<!-- include footer -->
+<div th:replace="common/footer :: footer"></div>
+<script src="/js/common.js"></script>
+<script th:inline="javascript">
+document.addEventListener('DOMContentLoaded', function () {
+  const updateTotals = () => {
+    let totalPrice = 0;
+    const rows = document.querySelectorAll('.cart-table tbody tr');
+
+    rows.forEach(row => {
+      const priceText = row.querySelector('.price')?.textContent || '0';
+      const price = parseInt(priceText.replace(/,/g, ''), 10);
+      const qty = parseInt(row.querySelector('.quantity')?.textContent || '0', 10);
+      const itemTotal = price * qty;
+
+      row.querySelector('.total').textContent = itemTotal.toLocaleString();
+      totalPrice += itemTotal;
+    });
+
+    const discount = 5000;
+    document.querySelector('.summary-total').textContent = totalPrice.toLocaleString();
+    document.querySelector('.summary-discount').textContent = discount.toLocaleString();
+    document.querySelector('.summary-final').textContent = (totalPrice - discount).toLocaleString();
+  };
+
+  document.querySelectorAll('.btn-minus').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const qtyElem = btn.parentElement.querySelector('.quantity');
+      let qty = parseInt(qtyElem.textContent);
+      if (qty > 1) qtyElem.textContent = --qty;
+      updateTotals();
+    });
+  });
+
+  document.querySelectorAll('.btn-plus').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const qtyElem = btn.parentElement.querySelector('.quantity');
+      let qty = parseInt(qtyElem.textContent);
+      qtyElem.textContent = ++qty;
+      updateTotals();
+    });
+  });
+
+  updateTotals();
+});
+</script>
+</body>
+</html>
