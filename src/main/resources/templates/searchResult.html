@@ -1,0 +1,121 @@
+<!-- src/main/resources/templates/main.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>NOVA</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<!-- include header -->
+<div th:replace="common/header :: header"></div>
+
+<main>
+    <!-- 메인 배너  -->
+    <div class="search-header">
+        <input type="text" class="search-input" placeholder="검색어를 입력하세요.">
+        <button class="search-btn"><img src="/img/search_icon.png"></button>
+    </div>
+
+    <!-- 신상  -->
+    <section class="main-section">
+        <h2>NEW</h2>
+        <div class="main-container">
+            <div class="items">
+                <a href="#"><img src="/img/blue.png" alt="New_1"></a>
+                <li class="product">반팔 티셔츠 (3 colors)</li>
+                <li class="price">18,000원</li>
+            </div>
+            <div class="items">
+                <a href="#"><img src="/img/green.png" alt="New_2"></a>
+                <li class="product">반팔 티셔츠 (3 colors)</li>
+                <li class="price">18,000원</li>
+            </div>
+            <div class="items">
+                <a href="#"><img src="/img/blue.png" alt="New_3"></a>
+                <li class="product">반팔 티셔츠 (3 colors)</li>
+                <li class="price">18,000원</li>
+            </div>
+            <div class="items">
+                <a href="#"><img src="/img/green.png" alt="New_4"></a>
+                <li class="product">반팔 티셔츠 (3 colors)</li>
+                <li class="price">18,000원</li>
+            </div>
+            <div class="items">
+                <a href="#"><img src="/img/blue.png" alt="New_5"></a>
+                <li class="product">반팔 티셔츠 (3 colors)</li>
+                <li class="price">18,000원</li>
+            </div>
+        </div>
+    </section>
+
+    <!-- 브랜드 pick -->
+    <section class="main-section">
+        <h2>BRAND PICK</h2>
+        <div class="main-container">
+            <div class="items">
+                <a href="#"><img src="/img/blue.png" alt="New_1"></a>
+                <li class="product">반팔 티셔츠 (3 colors)</li>
+                <li class="price">18,000원</li>
+            </div>
+            <div class="items">
+                <a href="#"><img src="/img/green.png" alt="New_2"></a>
+                <li class="product">반팔 티셔츠 (3 colors)</li>
+                <li class="price">18,000원</li>
+            </div>
+            <div class="items">
+                <a href="#"><img src="/img/blue.png" alt="New_3"></a>
+                <li class="product">반팔 티셔츠 (3 colors)</li>
+                <li class="price">18,000원</li>
+            </div>
+            <div class="items">
+                <a href="#"><img src="/img/green.png" alt="New_4"></a>
+                <li class="product">반팔 티셔츠 (3 colors)</li>
+                <li class="price">18,000원</li>
+            </div>
+            <div class="items">
+                <a href="#"><img src="/img/blue.png" alt="New_5"></a>
+                <li class="product">반팔 티셔츠 (3 colors)</li>
+                <li class="price">18,000원</li>
+            </div>
+        </div>
+    </section>
+
+    <!-- 베스트 -->
+    <section class="main-section">
+        <h2>BEST 5</h2>
+        <div class="main-container">
+            <div class="items">
+                <a href="#"><img src="/img/blue.png" alt="New_1"></a>
+                <li class="product">반팔 티셔츠 (3 colors)</li>
+                <li class="price">18,000원</li>
+            </div>
+            <div class="items">
+                <a href="#"><img src="/img/green.png" alt="New_2"></a>
+                <li class="product">반팔 티셔츠 (3 colors)</li>
+                <li class="price">18,000원</li>
+            </div>
+            <div class="items">
+                <a href="#"><img src="/img/blue.png" alt="New_3"></a>
+                <li class="product">반팔 티셔츠 (3 colors)</li>
+                <li class="price">18,000원</li>
+            </div>
+            <div class="items">
+                <a href="#"><img src="/img/green.png" alt="New_4"></a>
+                <li class="product">반팔 티셔츠 (3 colors)</li>
+                <li class="price">18,000원</li>
+            </div>
+            <div class="items">
+                <a href="#"><img src="/img/blue.png" alt="New_5"></a>
+                <li class="product">반팔 티셔츠 (3 colors)</li>
+                <li class="price">18,000원</li>
+            </div>
+        </div>
+    </section>
+</main>
+<div id="search-container" style="display: none;"></div>
+<!-- include footer -->
+<div th:replace="common/footer :: footer"></div>
+<script src="/js/common.js"></script>
+</body>
+</html>
