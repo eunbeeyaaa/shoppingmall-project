@@ -16,4 +16,8 @@ public class MainController {
         return "search";
     }
 
+    @GetMapping("/searchResult")
+    public String searchResult() {
+        return "searchResult";
+    }
 }
