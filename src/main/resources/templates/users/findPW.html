@@ -1,0 +1,81 @@
+<!-- src/main/resources/templates/main.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>FIND PW</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<!-- include header -->
+<div th:replace="common/header :: header"></div>
+
+<main>
+    <div class="sign-container">
+        <h1 class="sign-title">FIND PW</h1>
+        <form id="sign-form" class="sign-form">
+            <li><label class="required">ID</label></li>
+            <input type="text" placeholder="ID" required>
+            <li><label class="required">NAME</label></li>
+            <input type="text" placeholder="NAME" required>
+            <li><label class="required">NEW PW</label></li>
+            <input type="password" placeholder="PW" required>
+            <li><label class="required">CHECK PW</label></li>
+            <input type="password" placeholder="CHECK PW" required>
+            <p id="pw-mismatch-msg" class="error-message" style="display: none;">비밀번호가 일치하지 않습니다.</p>
+
+            <button type="submit" class="login-btn">FIND PW</button>
+        </form>
+    </div>
+</main>
+
+<div id="search-container" style="display: none;"></div>
+<!-- include footer -->
+<div th:replace="common/footer :: footer"></div>
+<script src="/js/common.js"></script>
+
+<script th:inline="javascript">
+    document.getElementById('sign-form').addEventListener('submit', (e) => {
+        const form = e.target;
+        const inputs = form.querySelectorAll("input[required");
+        const pw = form.querySelector('input[placeholder="PW"]');
+        const pwCheck = form.querySelector('input[placeholder="CHECK PW"]');
+        const pwMsg = document.getElementById('pw-mismatch-msg');
+
+        let firstInvalid = null;
+        let isValid = true;
+
+        inputs.forEach(input => {
+            const isEmpty = !input.value.trim();
+            if(isEmpty) {
+                input.classList.add("input-error");
+                if(!firstInvalid) firstInvalid = input;
+            } else {
+                input.classList.remove("input-error");
+            }
+        });
+
+        // 비밀번호 일치 체크
+        if (pw.value && pwCheck.value && pw.value !== pwCheck.value) {
+            pwCheck.classList.add("input-error");
+            pw.classList.add("input-error");
+            pwMsg.style.display = 'block';
+            isValid = false;
+            if (!firstInvalid) firstInvalid = pwCheck;
+        } else {
+            pwMsg.style.display = 'none';
+            pwCheck.classList.remove("input-error");
+            pw.classList.remove("input-error");
+        }
+
+        if (firstInvalid) {
+            e.preventDefault();
+            firstInvalid.focus();
+        }
+    });
+
+
+</script>
+
+</body>
+</html>
