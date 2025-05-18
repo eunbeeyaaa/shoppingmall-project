@@ -20,4 +20,7 @@ public class MainController {
     public String searchResult() {
         return "searchResult";
     }
+
+    @GetMapping("/product")
+    public String productPage() { return "product"; }
 }

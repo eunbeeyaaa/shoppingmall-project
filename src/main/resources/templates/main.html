@@ -124,5 +124,15 @@
 <!-- include footer -->
 <div th:replace="common/footer :: footer"></div>
 <script src="/js/common.js"></script>
+<script>
+    document.querySelectorAll('.main-container .items').forEach(item => {
+        const name = item.querySelector('.product')?.innerText;
+        const price = item.querySelector('.price')?.innerText;
+        const img = item.querySelector('img')?.src;
+
+        item.querySelector('a').href = `/product?name=${encodeURIComponent(name)}&price=${encodeURIComponent(price)}&image=${encodeURIComponent(img)}`;
+    });
+</script>
+
 </body>
 </html>
