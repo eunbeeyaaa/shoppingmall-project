@@ -12,9 +12,14 @@
             <a href="/products/etc">ETC</a>
         </div>
         <div class="account">
-            <!-- <a href="#">SEARCH</a> -->
             <a href="/search" id="search-open-btn">SEARCH</a>
-            <a href="/login">LOGIN</a>
+
+            <!-- 로그인 사용자용 영역 -->
+            <span id="header-user" style="display: none;"></span>
+            <a href="#" id="logout-btn" style="display: none;">LOGOUT</a>
+
+            <!-- 비로그인 사용자용 -->
+            <a href="/login" id="login-link">LOGIN</a>
             <a href="/cart">CART</a>
         </div>
     </div>

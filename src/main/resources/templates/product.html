@@ -5,155 +5,148 @@
     <title>NOVA</title>
     <link rel="stylesheet" href="/css/style.css" />
     <style>
-    .product-detail {
-        max-width: 1200px;
-        margin: 50px auto;
-        padding: 30px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 40px;
-        justify-content: center;
-      }
+        .product-detail {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+          }
 
-      .product-detail img {
-        width: 400px;
-        max-width: 100%;
-        border-radius: 8px;
-        object-fit: cover;
-      }
+          .product-detail img {
+            width: 400px;
+            max-width: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+          }
 
-  .product-info {
-    flex: 1;
-    min-width: 300px;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
+          .product-info {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+          }
 
-    .product-info h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
+          .product-info h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+          }
 
-      .product-info .price {
-        font-size: 22px;
-        color: black;
-        font-weight: bold;
-      }
+          .product-info .price {
+            font-size: 22px;
+            color: black;
+            font-weight: bold;
+          }
 
-      .product-info .desc {
-        font-size: 16px;
-        color: #555;
-        line-height: 1.5;
-      }
+          .product-info .desc {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.5;
+          }
 
-  .option-select label {
-    font-weight: bold;
-    display: block;
-    margin: 10px 0 5px;
-  }
+          .option-select label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+          }
 
-  .option-select select {
-    padding: 8px;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
+          .option-select select {
+            padding: 8px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+          }
 
-    .total,
-    .cart-btn {
-      margin-bottom: 10px;
-      display: block;
-    }
+          .total,
+          .cart-btn {
+            margin-bottom: 10px;
+            display: block;
+          }
 
-    .option-select select {
-      padding: 5px;
-      margin-left: 10px;
-    }
+          .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+          }
 
-  .quantity-control {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 10px 0;
-  }
+          .quantity-control button {
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            background-color: #eee;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          }
 
-  .quantity-control button {
-    width: 30px;
-    height: 30px;
-    font-size: 18px;
-    background-color: #eee;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+          .total {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+            margin: 10px 0;
+          }
 
-  .total {
-    font-weight: bold;
-    font-size: 18px;
-    color: #333;
-    margin: 10px 0;
-  }
+          .cart-btn {
+            background-color: black;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+          }
 
-  .cart-btn {
-    background-color: black;
-    color: #fff;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
+          .tabs {
+              position: sticky;
+              top: 0;
+              z-index: 999;
+              background: #fff;
+              display: flex;
+              justify-content: center;
+              border-bottom: 1px solid #ddd;
+              padding: 10px 0;
+              margin-bottom: 20px;
+            }
 
-  .tabs {
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      border-bottom: 1px solid #ddd;
-      padding: 10px 0;
-      margin-bottom: 20px;
-    }
+            .tabs a {
+              padding: 10px 20px;
+              text-decoration: none;
+              color: #333;
+              font-weight: bold;
+            }
 
-    .tabs a {
-      padding: 10px 20px;
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-    }
+            .tabs a:hover {
+              color: #d32f2f;
+            }
 
-    .tabs a:hover {
-      color: #d32f2f;
-    }
+            .product-section {
+              padding: 40px 10%;
+              scroll-margin-top: 70px;
+              border-bottom: 1px solid #eee;
+            }
 
-    /* 각 섹션 */
-    .product-section {
-      padding: 40px 10%;
-      scroll-margin-top: 70px; /* 탭 높이만큼 */
-      border-bottom: 1px solid #eee;
-    }
+            .product-section:last-of-type {
+              border-bottom: none;
+            }
 
-    .product-section:last-of-type {
-      border-bottom: none;
-    }
+            @media (max-width: 768px) {
+            .product-detail {
+              flex-direction: column;
+              align-items: center;
+            }
 
-    @media (max-width: 768px) {
-    .product-detail {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .product-info {
-      max-width: 100%;
-    }
-
-
-  </style>
+            .product-info {
+              max-width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -162,12 +155,12 @@
 
 <!-- 상품 상세 카드 -->
 <div class="product-detail">
-    <img id="product-image" src="" alt="상품 이미지" />
+    <img th:src="${product.imageUrl}" alt="상품 이미지" />
     <div class="product-info">
-        <h1 id="product-name">상품명</h1>
-        <div class="price" id="product-price">가격</div>
+        <h1 th:text="${product.name}">상품명</h1>
+        <div class="price" th:text="${#numbers.formatInteger(product.price.intValue(), 3, 'COMMA')} + '원'">가격</div>
         <div class="desc">
-            <p>이 상품은 스타일리시하고 편안한 착용감을 제공합니다. 다양한 코디에 잘 어울려 데일리 아이템으로 추천드립니다.</p>
+            <p th:text="${product.description}">상품 설명</p>
         </div>
         <div class="option-select">
             <label>색상:
@@ -210,7 +203,7 @@
 <!-- 콘텐츠 -->
 <div id="info" class="product-section">
     <h2>상품 정보</h2>
-    <p>여기에 상세 상품 정보가 들어갑니다.</p>
+    <p th:text="${product.description}">여기에 상세 상품 정보가 들어갑니다.</p>
 </div>
 <div id="review" class="product-section">
     <h2>상품 후기</h2>
@@ -222,92 +215,64 @@
 </div>
 <div id="delivery" class="product-section">
     <h2>배송/교환/환불 안내</h2>
-    <h4>DELIVERY</h4>
-    <p>
-        - 결제일 이후 2~3일 이내 발송합니다. (주말, 공휴일 제외) <br>
-        - 일부 도서/산간 지역에는 배송비 추가 및 배송 지연이 발생 할 수 있습니다.
-    </p>
-    <h4>EXCHANGE & REFUND</h4>
-    <p>
-        - 구매자의 부주의로 인한 상품 파손은 교환 및 환불 불가합니다.<br>
-        - 라벨 제거 시 교환 및 환불 불가합니다. <br>
-        - 단순 변심으로 인한 교환 및 환불의 경우, 구매자님께서 배송비를 부담하셔야합니다.<br>
-        - 상품 수령일로부터 7일 이내로만 교환 및 환불 가능합니다. <br>
-        - 상품 불량 및 오배송으로 인한 교환 및 환불은 배송비는 본사에서 부담합니다. <br>
-        - 본사의 상품이 아닌 경우 교환 및 환불 불가합니다.
-    </p>
+    <p>배송/교환/환불 정책이 여기에 들어갑니다.</p>
 </div>
 
 <!-- 푸터 -->
 <div th:replace="~{common/footer :: footer}"></div>
 
 <!-- JS -->
-<script>
-  const params = new URLSearchParams(window.location.search);
-  const name = decodeURIComponent(params.get('name'));
-  const priceStr = decodeURIComponent(params.get('price'));
-  const price = parseInt(priceStr.replace(/[^0-9]/g, ""));
-  const image = decodeURIComponent(params.get('image'));
+<script th:inline="javascript">
+    const price = parseInt([[${product.price}]]);
+    let quantity = 1;
 
-  let quantity = 1;
-
-  if (name && priceStr && image) {
-    document.getElementById("product-name").innerText = name;
-    document.getElementById("product-price").innerText = priceStr;
-    document.getElementById("product-image").src = image;
-    updateTotal();
-  } else {
-    document.querySelector(".product-detail").innerHTML = "<p>상품 정보를 불러올 수 없습니다.</p>";
-  }
-
-  function updateTotal() {
-    document.getElementById('quantity').innerText = quantity;
-    document.getElementById('totalPrice').innerText = (quantity * price).toLocaleString() + '원';
-  }
-
-  document.getElementById('plus').addEventListener('click', () => {
-    quantity++;
-    updateTotal();
-  });
-
-  document.getElementById('minus').addEventListener('click', () => {
-    if (quantity > 1) quantity--;
-    updateTotal();
-  });
-
-  document.getElementById('addToCart').addEventListener('click', () => {
-    const selectedColor = document.getElementById('color').value;
-    const selectedSize = document.getElementById('size').value;
-
-    if (!selectedColor || !selectedSize) {
-      alert("색상과 사이즈를 선택해주세요!");
-      return;
+    function updateTotal() {
+      document.getElementById('quantity').innerText = quantity;
+      document.getElementById('totalPrice').innerText = (quantity * price).toLocaleString() + '원';
     }
 
-    const cartItem = {
-      name,
-      image,
-      price,
-      quantity,
-      color: selectedColor,
-      size: selectedSize,
-      totalPrice: quantity * price
-    };
-
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push(cartItem);
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    alert("장바구니에 담겼어요! 🛒");
-  });
-
-  document.querySelectorAll('.tabs a').forEach(link => {
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href');
-      document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('plus').addEventListener('click', () => {
+      quantity++;
+      updateTotal();
     });
-  });
+
+    document.getElementById('minus').addEventListener('click', () => {
+      if (quantity > 1) quantity--;
+      updateTotal();
+    });
+
+    updateTotal();
+
+    document.getElementById('addToCart').addEventListener('click', async () => {
+      const selectedColor = document.getElementById('color').value;
+      const selectedSize = document.getElementById('size').value;
+
+      if (!selectedColor || !selectedSize) {
+        alert("색상과 사이즈를 선택해주세요!");
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/cart/add', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            menuId: [[${product.id}]],
+            quantity: quantity
+          })
+        });
+
+        if (res.ok) {
+          alert("장바구니에 담겼습니다! 🛒");
+        } else {
+          const result = await res.text();
+          alert("실패: " + result);
+        }
+      } catch (err) {
+        alert("에러 발생!");
+        console.error(err);
+      }
+    });
 </script>
 
 </body>

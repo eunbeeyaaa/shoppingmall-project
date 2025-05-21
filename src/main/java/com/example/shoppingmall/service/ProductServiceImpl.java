@@ -1,7 +1,7 @@
 package com.example.shoppingmall.service;
 
-import com.example.shoppingmall.entity.Product;
-import com.example.shoppingmall.repository.ProductRepository;
+import com.example.shoppingmall.entity.Menu;
+import com.example.shoppingmall.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,22 +9,29 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
-public class ProductServiceImpl implements ProductService{
-    private final ProductRepository productRepository;
+public class ProductServiceImpl implements ProductService {
+
+    private final MenuRepository menuRepository;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductServiceImpl(MenuRepository menuRepository) {
+        this.menuRepository = menuRepository;
     }
 
     @Override
-    public List<Product> getProductsByCategory(String category) {
-        return productRepository.findByCategory(category);
+    public List<Menu> getProductsByCategory(String category) {
+        return menuRepository.findByCategory(category);
     }
 
     @Override
-    public Product getProductDetail(String category, Long productId) {
-        return productRepository.findByCategoryAndId(category, productId)
-                .orElseThrow(() -> new NoSuchElementException("Product not found"));
+    public Menu getProductDetail(String category, Long productId) {
+        return menuRepository.findByCategoryAndId(category, productId)
+                .orElseThrow(() -> new NoSuchElementException("Menu not found"));
+    }
+
+    @Override
+    public Menu getProductById(Long id) {
+        return menuRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Menu not found"));
     }
 }

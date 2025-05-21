@@ -8,7 +8,7 @@
 </head>
 <body>
 <!-- include header -->
-<div th:replace="common/header :: header"></div>
+<div th:replace="~{common/header :: header}"></div>
 
 <main>
     <!-- 메인 배너  -->
@@ -26,113 +26,23 @@
 
     <!-- 신상  -->
     <section class="main-section">
-        <h2>NEW</h2>
+        <h2>ALL PRODUCTS</h2>
         <div class="main-container">
-            <div class="items">
-                <a href="#"><img src="/img/product/top/top_ames_grey_tee.jpg" alt="New_1"></a>
-                <li class="product">BASIC LOGO TEE GERY</li>
-                <li class="price">20,400원</li>
-            </div>
-            <div class="items">
-                <a href="#"><img src="/img/product/top/top_brownbreath_white_tee.jpg" alt="New_2"></a>
-                <li class="product">TAG OG TEE WHITE</li>
-                <li class="price">39,000원</li>
-            </div>
-            <div class="items">
-                <a href="#"><img src="/img/product/outer/outer_oddstudio_white_jacket.jpg" alt="New_3"></a>
-                <li class="product">스카치 파이핑 윈드브레이커</li>
-                <li class="price">83,300원</li>
-            </div>
-            <div class="items">
-                <a href="#"><img src="/img/product/shoes/shoes_discovery_grey_jane.jpg" alt="New_4"></a>
-                <li class="product">웨이브 제인</li>
-                <li class="price">99,000원</li>
-            </div>
-            <div class="items">
-                <a href="#"><img src="/img/product/bottom/bottom_khakipoint_white_skirt.jpg" alt="New_5"></a>
-                <li class="product">Ribbon Shirring Skirt (melange)</li>
-                <li class="price">62,900원</li>
-            </div>
-        </div>
-    </section>
-
-    <!-- 브랜드 pick -->
-    <section class="main-section">
-        <h2>BRAND PICK</h2>
-        <div class="main-container">
-            <div class="items">
-                <a href="#"><img src="/img/product/bottom/bottom_ped_pants.jpg" alt="New_1"></a>
-                <li class="product">썬셋 버뮤다 데님 팬츠_블랙</li>
-                <li class="price">35,000원</li>
-            </div>
-            <div class="items">
-                <a href="#"><img src="/img/product/top/top_moodinside_shirt.jpg" alt="New_2"></a>
-                <li class="product">빈티지 링클 체크셔츠 (4 colors)</li>
-                <li class="price">29,900원</li>
-            </div>
-            <div class="items">
-                <a href="#"><img src="/img/product/top/top_tnt_white_tee.jpg" alt="New_3"></a>
-                <li class="product">T-Logo L/S Tee White</li>
-                <li class="price">52,000원</li>
-            </div>
-            <div class="items">
-                <a href="#"><img src="/img/product/shoes/shoes_puma.jpg" alt="New_4"></a>
-                <li class="product">스피드캣 OG - 블랙:모브 미스트</li>
-                <li class="price">139,000원</li>
-            </div>
-            <div class="items">
-                <a href="#"><img src="/img/product/bottom/bottom_tcm_blue_pants.jpg" alt="New_5"></a>
-                <li class="product">TCM starfish denim half pants (blue)</li>
-                <li class="price">80,100원</li>
-            </div>
-        </div>
-    </section>
-
-    <!-- 베스트 -->
-    <section class="main-section">
-        <h2>BEST 5</h2>
-        <div class="main-container">
-            <div class="items">
-                <a href="#"><img src="/img/product/top/top_bronson_white_tee.jpg" alt="New_1"></a>
-                <li class="product">Retro Motorcycle Graphic Tee White</li>
-                <li class="price">35,700원</li>
-            </div>
-            <div class="items">
-                <a href="#"><img src="/img/product/outer/outer_dimitri_black_hoodzipup.jpg" alt="New_2"></a>
-                <li class="product">스트라이프 로고 후드 집업_블랙&그레이</li>
-                <li class="price">38,900원</li>
-            </div>
-            <div class="items">
-                <a href="#"><img src="/img/product/top/top_sorano_tee.jpg" alt="New_3"></a>
-                <li class="product">SORANO Basic Logo T-shirt (4 colors)</li>
-                <li class="price">42,000원</li>
-            </div>
-            <div class="items">
-                <a href="#"><img src="/img/product/bag/bag_noiago.jpg" alt="New_4"></a>
-                <li class="product">NOI1390 나일론 데일리 백팩</li>
-                <li class="price">64,400원</li>
-            </div>
-            <div class="items">
-                <a href="#"><img src="/img/product/shoes/sheos_adidas_white.jpg" alt="New_5"></a>
-                <li class="product">삼바 OG</li>
-                <li class="price">149,000원</li>
+            <!-- DB에서 메뉴 목록 출력 -->
+            <div class="items" th:each="menu : ${menus}">
+                <a th:href="@{'/products/detail/' + ${menu.id}}">
+                    <img th:src="@{${menu.imageUrl}}" alt="Product Image" />
+                </a>
+                <div class="product" th:text="${menu.name}">상품명</div>
+                <div class="price" th:text="${#numbers.formatInteger(menu.price.intValue(), 3, 'COMMA')} + '원'">가격</div>
             </div>
         </div>
     </section>
 </main>
+
 <div id="search-container" style="display: none;"></div>
 <!-- include footer -->
-<div th:replace="common/footer :: footer"></div>
+<div th:replace="~{common/footer :: footer}"></div>
 <script src="/js/common.js"></script>
-<script>
-    document.querySelectorAll('.main-container .items').forEach(item => {
-        const name = item.querySelector('.product')?.innerText;
-        const price = item.querySelector('.price')?.innerText;
-        const img = item.querySelector('img')?.src;
-
-        item.querySelector('a').href = `/product?name=${encodeURIComponent(name)}&price=${encodeURIComponent(price)}&image=${encodeURIComponent(img)}`;
-    });
-</script>
-
 </body>
 </html>
