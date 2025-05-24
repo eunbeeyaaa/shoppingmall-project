@@ -153,6 +153,119 @@
     }
 
 
+/* 후기 리스트 wrapper 정렬 */
+
+  #review {
+    font-family: 'Pretendard', sans-serif;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  }
+
+  #review h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-left: 4px solid #4f46e5;
+    padding-left: 10px;
+    color: #333;
+  }
+
+  .filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  .filter-group > div {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+  }
+
+  .filter-group input,
+  .filter-group select {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    min-width: 80px;
+    font-size: 14px;
+  }
+
+  #filter-btn {
+    align-self: flex-end;
+    padding: 8px 16px;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  #filter-btn:hover {
+    background-color: #3730a3;
+  }
+
+
+/* 후기 카드 전체 */
+/* 후기 리스트 wrapper */
+#review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* 후기 카드 전체 */
+.review-card {
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 20px 0;
+  text-align: left;
+}
+
+.review-card:last-child {
+  border-bottom: none;
+}
+
+/* 후기 헤더 (닉네임 + 날짜 + 태그들) */
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.review-header .nickname {
+  font-weight: 600;
+  font-size: 14px;
+  color: #000;
+}
+
+.review-header .info {
+  color: #999;
+  font-size: 13px;
+}
+
+/* 후기 본문 */
+.review-content {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  white-space: pre-line;
+  margin-left: 0;
+}
+
+
+
+
   </style>
 </head>
 <body>
@@ -214,7 +327,50 @@
 </div>
 <div id="review" class="product-section">
     <h2>상품 후기</h2>
-    <p>후기가 여기에 표시됩니다.</p>
+
+    <!-- 필터 -->
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+        <div>
+            <label>SIZE</label>
+            <select id="filter-size">
+                <option value="">전체</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+            </select>
+        </div>
+
+        <div>
+            <label>성별</label>
+            <select id="filter-gender">
+                <option value="">전체</option>
+                <option value="여성">여성</option>
+                <option value="남성">남성</option>
+            </select>
+        </div>
+
+        <div>
+            <label>키</label>
+            <input type="number" id="filter-height-min" placeholder="예: 100" style="width: 60px;" />
+            ~
+            <input type="number" id="filter-height-max" placeholder="예: 200" style="width: 60px;" />
+        </div>
+
+        <div>
+            <label>몸무게</label>
+            <input type="number" id="filter-weight-min" placeholder="예: 40" style="width: 60px;" />
+            ~
+            <input type="number" id="filter-weight-max" placeholder="예: 55" style="width: 60px;" />
+        </div>
+
+        <button id="filter-btn" style="padding: 5px 10px;">조회 🔍</button>
+    </div>
+
+    <!-- 후기 리스트 -->
+    <div id="review-list">
+        <!-- 후기들이 여기에 표시돼요 -->
+    </div>
 </div>
 <div id="qna" class="product-section">
     <h2>상품 문의</h2>
@@ -308,6 +464,64 @@
       document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
     });
   });
+
+
+
+  const reviews = [
+    { name: "닉네임1", date: "2025.05.02", size: "M", gender: "여성", height: 160, weight: 50, content: "옷 핏이 마음에 들어요! X자 어깨 잘 살려줌 아주 굿!" },
+    { name: "닉네임2", date: "2025.05.02", size: "S", gender: "여성", height: 155, weight: 45, content: "생각보다 딱 맞아요. 만족!" },
+    { name: "닉네임3", date: "2025.05.02", size: "L", gender: "남성", height: 178, weight: 70, content: "사이즈 넉넉해서 좋아요." },
+    { name: "닉네임4", date: "2025.05.02", size: "M", gender: "여성", height: 160, weight: 50, content: "핏이 딱 좋고 소재도 부드러워요." }
+  ];
+
+  function renderReviews(filteredReviews) {
+  const list = document.getElementById("review-list");
+  list.innerHTML = "";
+
+  if (filteredReviews.length === 0) {
+    list.innerHTML = "<p>조건에 맞는 후기가 없어요 😢</p>";
+    return;
+  }
+
+  filteredReviews.forEach(r => {
+    const div = document.createElement("div");
+    div.className = "review-card";
+    div.innerHTML = `
+      <div class="review-header">
+        <span class="nickname">${r.name}</span>
+        <span class="tag">${r.date}</span>
+        <span class="tag">사이즈: ${r.size}</span>
+        <span class="tag">${r.gender}</span>
+        <span class="tag">${r.height}cm / ${r.weight}kg</span>
+      </div>
+      <div class="review-content">${r.content}</div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+  function filterReviews() {
+    const size = document.getElementById("filter-size").value;
+    const gender = document.getElementById("filter-gender").value;
+    const heightMin = parseInt(document.getElementById("filter-height-min").value) || 0;
+    const heightMax = parseInt(document.getElementById("filter-height-max").value) || 300;
+    const weightMin = parseInt(document.getElementById("filter-weight-min").value) || 0;
+    const weightMax = parseInt(document.getElementById("filter-weight-max").value) || 300;
+
+    const filtered = reviews.filter(r =>
+      (size === "" || r.size === size) &&
+      (gender === "" || r.gender === gender) &&
+      r.height >= heightMin && r.height <= heightMax &&
+      r.weight >= weightMin && r.weight <= weightMax
+    );
+
+    renderReviews(filtered);
+  }
+
+  document.getElementById("filter-btn").addEventListener("click", filterReviews);
+
+  // 페이지 진입 시 전체 후기 표시
+  renderReviews(reviews);
 </script>
 
 </body>
