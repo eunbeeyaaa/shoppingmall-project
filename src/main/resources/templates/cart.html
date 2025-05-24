@@ -53,13 +53,29 @@
 <script src="/js/common.js"></script>
 <script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', async () => {
+      // 로그인 여부를 우선 확인
+      try {
+        const loginRes = await fetch('/api/me');
+        const loginData = await loginRes.json();
+
+        if (loginData.result !== 'success') {
+          alert('로그인 후 이용해주세요.');
+          console.warn('로그인이 필요합니다.');
+          return; // 페이지 동작 중단 (리디렉션 없이!)
+        }
+      } catch (err) {
+        console.error('로그인 확인 실패:', err);
+        alert('로그인 확인 중 오류가 발생했습니다.');
+        return;
+      }
+
+      // 장바구니 조회 로직
       const tbody = document.querySelector('.cart-table tbody');
       const emptyMsg = document.querySelector('.cart-empty');
       const summaryTotal = document.querySelector('.summary-total');
       const summaryDiscount = document.querySelector('.summary-discount');
       const summaryFinal = document.querySelector('.summary-final');
 
-      // 서버에서 장바구니 아이템 불러오기
       try {
         const res = await fetch('list');
         const data = await res.json();
@@ -90,7 +106,6 @@
             `;
             tbody.appendChild(tr);
           });
-
           emptyMsg.style.display = 'none';
         } else {
           emptyMsg.style.display = 'block';
@@ -113,7 +128,7 @@
           totalPrice += itemTotal;
         });
 
-        const discount = 5000;
+        const discount = 0; // ✅ 할인액 0으로 고정
         summaryTotal.textContent = totalPrice.toLocaleString();
         summaryDiscount.textContent = discount.toLocaleString();
         summaryFinal.textContent = (totalPrice - discount).toLocaleString();
@@ -136,7 +151,7 @@
 
         if (e.target.classList.contains('delete-btn')) {
           const cartId = e.target.getAttribute('data-id');
-          fetch(`api/cart/remove/${cartId}`, { method: 'DELETE' })
+          fetch(`/api/cart/remove/${cartId}`, { method: 'DELETE' })
             .then(() => {
               e.target.closest('tr').remove();
               updateTotals();

@@ -1,3 +1,12 @@
+<!-- src/main/resources/templates/common/header.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Header</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
 <header th:fragment="header">
     <div class="header-container">
         <a href="/" class="logo">NOVA</a>
@@ -14,14 +23,62 @@
         <div class="account">
             <a href="/search" id="search-open-btn">SEARCH</a>
 
-            <!-- 로그인 사용자용 영역 -->
+            <!-- 로그인 사용자 영역 -->
             <span id="header-user" style="display: none;"></span>
             <a href="#" id="logout-btn" style="display: none;">LOGOUT</a>
 
-            <!-- 비로그인 사용자용 -->
+            <!-- 비로그인 사용자 영역 -->
             <a href="/login" id="login-link">LOGIN</a>
-            <a href="/cart">CART</a>
+            <a href="/cart" id="cart-link">CART</a>
         </div>
     </div>
 </header>
-<div id="search-container" style="display:none;"></div>
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', async () => {
+      const headerUser = document.getElementById('header-user');
+      const logoutBtn = document.getElementById('logout-btn');
+      const loginLink = document.getElementById('login-link');
+      const cartLink = document.getElementById('cart-link');
+
+      try {
+        const res = await fetch('/api/me');
+        const data = await res.json();
+
+        if (data.result === 'success') {
+          // 로그인 상태: 사용자명 표시 & 로그아웃 버튼
+          if (headerUser) {
+            headerUser.innerText = `${data.name}님 환영합니다!`;
+            headerUser.style.display = 'inline';
+          }
+          if (logoutBtn) {
+            logoutBtn.style.display = 'inline';
+            logoutBtn.addEventListener('click', async (e) => {
+              e.preventDefault();
+              await fetch('/api/logout', { method: 'POST' });
+              alert('로그아웃 되었습니다.');
+              location.reload();
+            });
+          }
+          if (loginLink) loginLink.style.display = 'none'; // 로그인 버튼 숨김
+        } else {
+          // 비로그인 상태: 로그인 버튼만 보이기
+          if (headerUser) headerUser.style.display = 'none';
+          if (logoutBtn) logoutBtn.style.display = 'none';
+          if (loginLink) loginLink.style.display = 'inline';
+
+          // 카트 버튼 클릭 시 알럿
+          if (cartLink) {
+            cartLink.addEventListener('click', (e) => {
+              e.preventDefault();
+              alert('로그인 후 이용해주세요!');
+            });
+          }
+        }
+      } catch (err) {
+        console.error('헤더 로그인 확인 오류:', err);
+      }
+    });
+</script>
+</body>
+</html>
