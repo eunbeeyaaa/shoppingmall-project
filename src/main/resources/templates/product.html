@@ -1,3 +1,300 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8" />-->
+<!--    <title>NOVA</title>-->
+<!--    <link rel="stylesheet" href="/css/style.css" />-->
+<!--    <style>-->
+<!--        .product-detail {-->
+<!--            max-width: 1200px;-->
+<!--            margin: 50px auto;-->
+<!--            padding: 30px;-->
+<!--            border: 1px solid #ddd;-->
+<!--            border-radius: 10px;-->
+<!--            display: flex;-->
+<!--            flex-wrap: wrap;-->
+<!--            gap: 40px;-->
+<!--            justify-content: center;-->
+<!--          }-->
+
+<!--          .product-detail img {-->
+<!--            width: 400px;-->
+<!--            max-width: 100%;-->
+<!--            border-radius: 8px;-->
+<!--            object-fit: cover;-->
+<!--          }-->
+
+<!--          .product-info {-->
+<!--            flex: 1;-->
+<!--            min-width: 300px;-->
+<!--            max-width: 600px;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            gap: 15px;-->
+<!--          }-->
+
+<!--          .product-info h1 {-->
+<!--            font-size: 28px;-->
+<!--            margin-bottom: 10px;-->
+<!--          }-->
+
+<!--          .product-info .price {-->
+<!--            font-size: 22px;-->
+<!--            color: black;-->
+<!--            font-weight: bold;-->
+<!--          }-->
+
+<!--          .product-info .desc {-->
+<!--            font-size: 16px;-->
+<!--            color: #555;-->
+<!--            line-height: 1.5;-->
+<!--          }-->
+
+<!--          .option-select label {-->
+<!--            font-weight: bold;-->
+<!--            display: block;-->
+<!--            margin: 10px 0 5px;-->
+<!--          }-->
+
+<!--          .option-select select {-->
+<!--            padding: 8px;-->
+<!--            width: 100%;-->
+<!--            border: 1px solid #ccc;-->
+<!--            border-radius: 5px;-->
+<!--          }-->
+
+<!--          .total,-->
+<!--          .cart-btn {-->
+<!--            margin-bottom: 10px;-->
+<!--            display: block;-->
+<!--          }-->
+
+<!--          .quantity-control {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 10px;-->
+<!--            margin: 10px 0;-->
+<!--          }-->
+
+<!--          .quantity-control button {-->
+<!--            width: 30px;-->
+<!--            height: 30px;-->
+<!--            font-size: 18px;-->
+<!--            background-color: #eee;-->
+<!--            border: none;-->
+<!--            border-radius: 5px;-->
+<!--            cursor: pointer;-->
+<!--          }-->
+
+<!--          .total {-->
+<!--            font-weight: bold;-->
+<!--            font-size: 18px;-->
+<!--            color: #333;-->
+<!--            margin: 10px 0;-->
+<!--          }-->
+
+<!--          .cart-btn {-->
+<!--            background-color: black;-->
+<!--            color: #fff;-->
+<!--            border: none;-->
+<!--            padding: 12px 20px;-->
+<!--            border-radius: 5px;-->
+<!--            cursor: pointer;-->
+<!--            font-size: 16px;-->
+<!--          }-->
+
+<!--          .tabs {-->
+<!--              position: sticky;-->
+<!--              top: 0;-->
+<!--              z-index: 999;-->
+<!--              background: #fff;-->
+<!--              display: flex;-->
+<!--              justify-content: center;-->
+<!--              border-bottom: 1px solid #ddd;-->
+<!--              padding: 10px 0;-->
+<!--              margin-bottom: 20px;-->
+<!--            }-->
+
+<!--            .tabs a {-->
+<!--              padding: 10px 20px;-->
+<!--              text-decoration: none;-->
+<!--              color: #333;-->
+<!--              font-weight: bold;-->
+<!--            }-->
+
+<!--            .tabs a:hover {-->
+<!--              color: rgb(153, 153, 153);-->
+<!--            }-->
+
+<!--            .product-section {-->
+<!--              padding: 40px 10%;-->
+<!--              scroll-margin-top: 70px;-->
+<!--              border-bottom: 1px solid #eee;-->
+<!--            }-->
+
+<!--            .product-section:last-of-type {-->
+<!--              border-bottom: none;-->
+<!--            }-->
+
+<!--            @media (max-width: 768px) {-->
+<!--            .product-detail {-->
+<!--              flex-direction: column;-->
+<!--              align-items: center;-->
+<!--            }-->
+
+<!--            .product-info {-->
+<!--              max-width: 100%;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--&lt;!&ndash; 헤더 &ndash;&gt;-->
+<!--<div th:replace="~{common/header :: header}"></div>-->
+
+<!--&lt;!&ndash; 상품 상세 카드 &ndash;&gt;-->
+<!--<div class="product-detail">-->
+<!--    <img th:src="${product.imageUrl}" alt="상품 이미지" />-->
+<!--    <div class="product-info">-->
+<!--        <h1 th:text="${product.name}">상품명</h1>-->
+<!--        <div class="price" th:text="${#numbers.formatInteger(product.price.intValue(), 3, 'COMMA')} + '원'">가격</div>-->
+<!--        <div class="desc">-->
+<!--            <p th:text="${product.description}">상품 설명</p>-->
+<!--        </div>-->
+<!--        <div class="option-select">-->
+<!--            <label>색상:-->
+<!--                <select id="color">-->
+<!--                    <option value="">[필수] 선택</option>-->
+<!--                    <option value="블랙">블랙</option>-->
+<!--                    <option value="화이트">화이트</option>-->
+<!--                </select>-->
+<!--            </label>-->
+<!--        </div>-->
+<!--        <div class="option-select">-->
+<!--            <label>사이즈:-->
+<!--                <select id="size">-->
+<!--                    <option value="">[필수] 선택</option>-->
+<!--                    <option value="M">M</option>-->
+<!--                    <option value="L">L</option>-->
+<!--                </select>-->
+<!--            </label>-->
+<!--        </div>-->
+
+<!--        <div class="quantity-control">-->
+<!--            <button id="minus">-</button>-->
+<!--            <span id="quantity">1</span>-->
+<!--            <button id="plus">+</button>-->
+<!--        </div>-->
+
+<!--        <div class="total">TOTAL: <span id="totalPrice">0원</span></div>-->
+<!--        <button id="addToCart" class="cart-btn">장바구니에 담기</button>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; 탭 &ndash;&gt;-->
+<!--<div class="tabs">-->
+<!--    <a href="#info">상품 정보</a>-->
+<!--    <a href="#review">상품 후기</a>-->
+<!--    <a href="#qna">상품 문의</a>-->
+<!--    <a href="#delivery">배송/교환/환불</a>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; 콘텐츠 &ndash;&gt;-->
+<!--<div id="info" class="product-section">-->
+<!--    <h2>상품 정보</h2>-->
+<!--    <p th:text="${product.description}">여기에 상세 상품 정보가 들어갑니다.</p>-->
+<!--</div>-->
+<!--<div id="review" class="product-section">-->
+<!--    <h2>상품 후기</h2>-->
+<!--    <p>후기가 여기에 표시됩니다.</p>-->
+<!--</div>-->
+<!--<div id="qna" class="product-section">-->
+<!--    <h2>상품 문의</h2>-->
+<!--    <p>문의 내용을 여기에 작성하거나 표시합니다.</p>-->
+<!--</div>-->
+<!--<div id="delivery" class="product-section">-->
+<!--    <h2>배송/교환/환불 안내</h2>-->
+<!--    <h4>DELIVERY</h4>-->
+<!--    <p>-->
+<!--        - 결제일 이후 2~3일 이내 발송합니다. (주말, 공휴일 제외) <br>-->
+<!--        - 일부 도서/산간 지역에는 배송비 추가 및 배송 지연이 발생 할 수 있습니다.-->
+<!--    </p>-->
+<!--    <h4>EXCHANGE & REFUND</h4>-->
+<!--    <p>-->
+<!--        - 구매자의 부주의로 인한 상품 파손은 교환 및 환불 불가합니다.<br>-->
+<!--        - 라벨 제거 시 교환 및 환불 불가합니다. <br>-->
+<!--        - 단순 변심으로 인한 교환 및 환불의 경우, 구매자님께서 배송비를 부담하셔야합니다.<br>-->
+<!--        - 상품 수령일로부터 7일 이내로만 교환 및 환불 가능합니다. <br>-->
+<!--        - 상품 불량 및 오배송으로 인한 교환 및 환불은 배송비는 본사에서 부담합니다. <br>-->
+<!--        - 본사의 상품이 아닌 경우 교환 및 환불 불가합니다.-->
+<!--    </p>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; 푸터 &ndash;&gt;-->
+<!--<div th:replace="~{common/footer :: footer}"></div>-->
+
+<!--&lt;!&ndash; JS &ndash;&gt;-->
+<!--<script th:inline="javascript">-->
+<!--    const price = parseInt([[${product.price}]]);-->
+<!--    let quantity = 1;-->
+
+<!--    function updateTotal() {-->
+<!--      document.getElementById('quantity').innerText = quantity;-->
+<!--      document.getElementById('totalPrice').innerText = (quantity * price).toLocaleString() + '원';-->
+<!--    }-->
+
+<!--    document.getElementById('plus').addEventListener('click', () => {-->
+<!--      quantity++;-->
+<!--      updateTotal();-->
+<!--    });-->
+
+<!--    document.getElementById('minus').addEventListener('click', () => {-->
+<!--      if (quantity > 1) quantity&#45;&#45;;-->
+<!--      updateTotal();-->
+<!--    });-->
+
+<!--    updateTotal();-->
+
+<!--    document.getElementById('addToCart').addEventListener('click', async () => {-->
+<!--      const selectedColor = document.getElementById('color').value;-->
+<!--      const selectedSize = document.getElementById('size').value;-->
+
+<!--      if (!selectedColor || !selectedSize) {-->
+<!--        alert("색상과 사이즈를 선택해주세요!");-->
+<!--        return;-->
+<!--      }-->
+
+<!--      try {-->
+<!--        const res = await fetch('/api/cart/add', {-->
+<!--          method: 'POST',-->
+<!--          headers: { 'Content-Type': 'application/json' },-->
+<!--          credentials: 'include',-->
+<!--          body: JSON.stringify({-->
+<!--            menuId: [[${product.id}]],-->
+<!--            quantity: quantity-->
+<!--          })-->
+<!--        });-->
+
+<!--        if (res.ok) {-->
+<!--          alert("장바구니에 담겼습니다! 🛒");-->
+<!--        } else {-->
+<!--          const result = await res.text();-->
+<!--          alert("실패: " + result);-->
+<!--        }-->
+<!--      } catch (err) {-->
+<!--        alert("에러 발생!");-->
+<!--        console.error(err);-->
+<!--      }-->
+<!--    });-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -123,17 +420,100 @@
             }
 
             .tabs a:hover {
-              color: #d32f2f;
+              color: rgb(153, 153, 153);
             }
 
             .product-section {
-              padding: 40px 10%;
+              /*padding: 40px 10%;*/
               scroll-margin-top: 70px;
               border-bottom: 1px solid #eee;
             }
 
             .product-section:last-of-type {
               border-bottom: none;
+            }
+
+            /* 리뷰 필터 스타일 */
+            .review-filter {
+              background-color: #f9f9f9;
+              padding: 20px;
+              border-radius: 8px;
+              margin-bottom: 30px;
+            }
+
+            .filter-row {
+              display: flex;
+              align-items: center;
+              gap: 20px;
+              flex-wrap: wrap;
+            }
+
+            .filter-item {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+            }
+
+            .filter-item label {
+              font-weight: bold;
+              white-space: nowrap;
+            }
+
+            .filter-item select {
+              padding: 5px 10px;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              background-color: white;
+            }
+
+            .filter-item input {
+              width: 60px;
+              padding: 5px 8px;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              text-align: center;
+            }
+
+            .search-btn {
+              background-color: #333;
+              color: white;
+              border: none;
+              padding: 8px 16px;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 14px;
+            }
+
+            .search-btn:hover {
+              background-color: #555;
+            }
+
+            /* 리뷰 목록 스타일 */
+            .review-list {
+              display: flex;
+              flex-direction: column;
+              gap: 20px;
+            }
+
+            .review-item {
+              padding: 20px;
+              border: 1px solid #eee;
+              border-radius: 8px;
+              background-color: #fafafa;
+            }
+
+            .review-header {
+              margin-bottom: 10px;
+            }
+
+            .reviewer-info {
+              color: #666;
+              font-size: 14px;
+            }
+
+            .review-content {
+              line-height: 1.5;
+              color: #333;
             }
 
             @media (max-width: 768px) {
@@ -144,6 +524,15 @@
 
             .product-info {
               max-width: 100%;
+            }
+
+            .filter-row {
+              flex-direction: column;
+              align-items: stretch;
+            }
+
+            .filter-item {
+              justify-content: space-between;
             }
         }
     </style>
@@ -207,7 +596,94 @@
 </div>
 <div id="review" class="product-section">
     <h2>상품 후기</h2>
-    <p>후기가 여기에 표시됩니다.</p>
+
+    <!-- 리뷰 필터 -->
+    <div class="review-filter">
+        <div class="filter-row">
+            <div class="filter-item">
+                <label>SIZE</label>
+                <select id="reviewSizeFilter">
+                    <option value="">전체</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+            </div>
+
+            <div class="filter-item">
+                <label>성별</label>
+                <select id="reviewGenderFilter">
+                    <option value="">전체</option>
+                    <option value="여성">여성</option>
+                    <option value="남성">남성</option>
+                </select>
+            </div>
+
+            <div class="filter-item">
+                <label>키</label>
+                <input type="number" id="heightMin" placeholder="100" min="100" max="250" />
+                <input type="number" id="heightMax" placeholder="200" min="100" max="250" />
+            </div>
+
+            <div class="filter-item">
+                <label>몸무게</label>
+                <input type="number" id="weightMin" placeholder="40" min="30" max="150" />
+                <input type="number" id="weightMax" placeholder="55" min="30" max="150" />
+            </div>
+
+            <button id="searchReviews" class="search-btn">조회</button>
+        </div>
+    </div>
+
+    <!-- 리뷰 목록 -->
+    <div id="reviewList" class="review-list">
+        <!-- 샘플 리뷰 데이터 -->
+        <div class="review-item" data-size="M" data-gender="여성" data-height="160" data-weight="50">
+            <div class="review-header">
+                <span class="reviewer-info">닉네임 2025.05.02 M 여성 160cm 50kg</span>
+            </div>
+            <div class="review-content">
+                옷 핏이 마음에 들어요! 조금 이게 핏 사이즈 아까 조금 마음에 안들었어 진짜 진짜 진짜 후회함 ;;;
+            </div>
+        </div>
+
+        <div class="review-item" data-size="M" data-gender="여성" data-height="160" data-weight="50">
+            <div class="review-header">
+                <span class="reviewer-info">닉네임 2025.05.02 M 여성 160cm 50kg</span>
+            </div>
+            <div class="review-content">
+                옷 핏이 마음에 들어요! 조금 이게 핏 사이즈 아까 조금 마음에 안들었어 진짜 진짜 진짜 후회함 ;;;
+            </div>
+        </div>
+
+        <div class="review-item" data-size="L" data-gender="남성" data-height="180" data-weight="75">
+            <div class="review-header">
+                <span class="reviewer-info">닉네임 2025.05.02 L 남성 180cm 75kg</span>
+            </div>
+            <div class="review-content">
+                사이즈가 딱 맞아요. 품질도 좋고 만족합니다!
+            </div>
+        </div>
+
+        <div class="review-item" data-size="S" data-gender="여성" data-height="155" data-weight="45">
+            <div class="review-header">
+                <span class="reviewer-info">닉네임 2025.05.02 S 여성 155cm 45kg</span>
+            </div>
+            <div class="review-content">
+                작은 사이즈도 잘 맞네요. 디자인이 예뻐요!
+            </div>
+        </div>
+
+        <div class="review-item" data-size="XL" data-gender="남성" data-height="185" data-weight="90">
+            <div class="review-header">
+                <span class="reviewer-info">닉네임 2025.05.02 XL 남성 185cm 90kg</span>
+            </div>
+            <div class="review-content">
+                큰 사이즈라서 걱정했는데 핏이 좋네요!
+            </div>
+        </div>
+    </div>
 </div>
 <div id="qna" class="product-section">
     <h2>상품 문의</h2>
@@ -215,7 +691,20 @@
 </div>
 <div id="delivery" class="product-section">
     <h2>배송/교환/환불 안내</h2>
-    <p>배송/교환/환불 정책이 여기에 들어갑니다.</p>
+    <h4>DELIVERY</h4>
+    <p>
+        - 결제일 이후 2~3일 이내 발송합니다. (주말, 공휴일 제외) <br>
+        - 일부 도서/산간 지역에는 배송비 추가 및 배송 지연이 발생 할 수 있습니다.
+    </p>
+    <h4>EXCHANGE & REFUND</h4>
+    <p>
+        - 구매자의 부주의로 인한 상품 파손은 교환 및 환불 불가합니다.<br>
+        - 라벨 제거 시 교환 및 환불 불가합니다. <br>
+        - 단순 변심으로 인한 교환 및 환불의 경우, 구매자님께서 배송비를 부담하셔야합니다.<br>
+        - 상품 수령일로부터 7일 이내로만 교환 및 환불 가능합니다. <br>
+        - 상품 불량 및 오배송으로 인한 교환 및 환불은 배송비는 본사에서 부담합니다. <br>
+        - 본사의 상품이 아닌 경우 교환 및 환불 불가합니다.
+    </p>
 </div>
 
 <!-- 푸터 -->
@@ -274,8 +763,57 @@
         console.error(err);
       }
     });
+
+    // 리뷰 필터링 기능
+    document.getElementById('searchReviews').addEventListener('click', () => {
+      const sizeFilter = document.getElementById('reviewSizeFilter').value;
+      const genderFilter = document.getElementById('reviewGenderFilter').value;
+      const heightMin = parseInt(document.getElementById('heightMin').value) || 0;
+      const heightMax = parseInt(document.getElementById('heightMax').value) || 300;
+      const weightMin = parseInt(document.getElementById('weightMin').value) || 0;
+      const weightMax = parseInt(document.getElementById('weightMax').value) || 200;
+
+      const reviewItems = document.querySelectorAll('.review-item');
+
+      reviewItems.forEach(item => {
+        const itemSize = item.getAttribute('data-size');
+        const itemGender = item.getAttribute('data-gender');
+        const itemHeight = parseInt(item.getAttribute('data-height'));
+        const itemWeight = parseInt(item.getAttribute('data-weight'));
+
+        let showItem = true;
+
+        // 사이즈 필터링
+        if (sizeFilter && itemSize !== sizeFilter) {
+          showItem = false;
+        }
+
+        // 성별 필터링
+        if (genderFilter && itemGender !== genderFilter) {
+          showItem = false;
+        }
+
+        // 키 필터링 (범위 검사)
+        if (heightMin > 0 && itemHeight < heightMin) {
+          showItem = false;
+        }
+        if (heightMax < 300 && itemHeight > heightMax) {
+          showItem = false;
+        }
+
+        // 몸무게 필터링 (범위 검사)
+        if (weightMin > 0 && itemWeight < weightMin) {
+          showItem = false;
+        }
+        if (weightMax < 200 && itemWeight > weightMax) {
+          showItem = false;
+        }
+
+        // 결과에 따라 표시/숨김
+        item.style.display = showItem ? 'block' : 'none';
+      });
+    });
 </script>
 
 </body>
 </html>
-
