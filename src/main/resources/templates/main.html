@@ -1,4 +1,3 @@
-<!-- src/main/resources/templates/main.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -11,7 +10,7 @@
 <div th:replace="~{common/header :: header}"></div>
 
 <main>
-    <!-- 메인 배너  -->
+    <!-- 메인 배너 -->
     <section class="banner">
         <div class="items">
             <a href="/products/new"><img src="/img/black.png" alt="Banner_1"></a>
@@ -24,12 +23,42 @@
         </div>
     </section>
 
-    <!-- 신상  -->
+    <!-- NEW 섹션 -->
     <section class="main-section">
-        <h2>ALL PRODUCTS</h2>
+        <h2>NEW</h2>
         <div class="main-container">
-            <!-- DB에서 메뉴 목록 출력 -->
-            <div class="items" th:each="menu : ${menus}">
+            <!-- 첫 5개 상품만 표시 -->
+            <div class="items" th:each="menu, iterStat : ${menus}" th:if="${iterStat.index < 5}">
+                <a th:href="@{'/products/detail/' + ${menu.id}}">
+                    <img th:src="@{${menu.imageUrl}}" alt="Product Image" />
+                </a>
+                <div class="product" th:text="${menu.name}">상품명</div>
+                <div class="price" th:text="${#numbers.formatInteger(menu.price.intValue(), 3, 'COMMA')} + '원'">가격</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BRAND PICK 섹션 -->
+    <section class="main-section">
+        <h2>BRAND PICK</h2>
+        <div class="main-container">
+            <!-- 6번째부터 10번째 상품 표시 -->
+            <div class="items" th:each="menu, iterStat : ${menus}" th:if="${iterStat.index >= 5 and iterStat.index < 10}">
+                <a th:href="@{'/products/detail/' + ${menu.id}}">
+                    <img th:src="@{${menu.imageUrl}}" alt="Product Image" />
+                </a>
+                <div class="product" th:text="${menu.name}">상품명</div>
+                <div class="price" th:text="${#numbers.formatInteger(menu.price.intValue(), 3, 'COMMA')} + '원'">가격</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEST 섹션 -->
+    <section class="main-section">
+        <h2>BEST</h2>
+        <div class="main-container">
+            <!-- 11번째부터 15번째 상품 표시 -->
+            <div class="items" th:each="menu, iterStat : ${menus}" th:if="${iterStat.index >= 10 and iterStat.index < 15}">
                 <a th:href="@{'/products/detail/' + ${menu.id}}">
                     <img th:src="@{${menu.imageUrl}}" alt="Product Image" />
                 </a>
@@ -41,8 +70,10 @@
 </main>
 
 <div id="search-container" style="display: none;"></div>
+
 <!-- include footer -->
 <div th:replace="~{common/footer :: footer}"></div>
+
 <script src="/js/common.js"></script>
 </body>
 </html>
