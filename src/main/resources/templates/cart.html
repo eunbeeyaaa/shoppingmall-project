@@ -1,4 +1,3 @@
-<!-- src/main/resources/templates/main.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -20,37 +19,17 @@
         <!-- 상품이 있을 때 -->
         <table class="cart-table">
             <thead>
-                <tr>
-                    <td><input type="checkbox" id="check-all"></td>
-                    <td>DETAIL</td>
-                    <td>PRICE</td>
-                    <td>QUANTITY</td>
-                    <td>TOTAL</td>
-                    <td>CHOOSE</td>
-                </tr>
+            <tr>
+                <td><input type="checkbox" id="check-all"></td>
+                <td>DETAIL</td>
+                <td>PRICE</td>
+                <td>QUANTITY</td>
+                <td>TOTAL</td>
+                <td>CHOOSE</td>
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input type="checkbox" class="item-check"></td>
-                    <td class="product-detail">
-                        <img src="/img/blue.png">
-                        <div class="product-info">
-                            반팔 티셔츠 (3 colors) <br/>
-                            [옵션] M, White
-                        </div>
-                    </td>
-                    <td class="price">18,000</td>
-                    <td class="quantity-controls">
-                        <button class="btn-minus">-</button>
-                        <span class="quantity">1</span>
-                        <button class="btn-plus">+</button>
-                    </td>
-                    <td class="total">18,000</td>
-                    <td>
-                        <button class="order-btn">ORDER</button><br>
-                        <button class="delete-btn">DELETE</button>
-                    </td>
-                </tr>
+            <!-- JavaScript로 채워질 영역 -->
             </tbody>
         </table>
 
@@ -65,71 +44,119 @@
             <button class="all-order">Order All Items</button>
         </div>
     </div>
-
 </main>
+
 <div id="search-container" style="display: none;"></div>
 <!-- include footer -->
 <div th:replace="common/footer :: footer"></div>
+
 <script src="/js/common.js"></script>
 <script th:inline="javascript">
-document.addEventListener('DOMContentLoaded', function () {
-  const updateTotals = () => {
-    let totalPrice = 0;
-    const rows = document.querySelectorAll('.cart-table tbody tr');
+    document.addEventListener('DOMContentLoaded', async () => {
+      const tbody = document.querySelector('.cart-table tbody');
+      const emptyMsg = document.querySelector('.cart-empty');
+      const summaryTotal = document.querySelector('.summary-total');
+      const summaryDiscount = document.querySelector('.summary-discount');
+      const summaryFinal = document.querySelector('.summary-final');
 
-    rows.forEach(row => {
-      const priceText = row.querySelector('.price')?.textContent || '0';
-      const price = parseInt(priceText.replace(/,/g, ''), 10);
-      const qty = parseInt(row.querySelector('.quantity')?.textContent || '0', 10);
-      const itemTotal = price * qty;
+      // 서버에서 장바구니 아이템 불러오기
+      try {
+        const res = await fetch('list');
+        const data = await res.json();
 
-      row.querySelector('.total').textContent = itemTotal.toLocaleString();
-      totalPrice += itemTotal;
-    });
+        if (data.result === 'success' && data.cartItems.length > 0) {
+          data.cartItems.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td><input type="checkbox" class="item-check"></td>
+              <td class="product-detail">
+                <img src="${item.menu.imageUrl}" />
+                <div class="product-info">
+                  ${item.menu.name} <br/>
+                  [옵션] ${item.color || '-'}, ${item.size || '-'}
+                </div>
+              </td>
+              <td class="price">${item.menu.price.toLocaleString()}</td>
+              <td class="quantity-controls">
+                <button class="btn-minus">-</button>
+                <span class="quantity">${item.quantity}</span>
+                <button class="btn-plus">+</button>
+              </td>
+              <td class="total">0</td>
+              <td>
+                <button class="order-btn">ORDER</button><br>
+                <button class="delete-btn" data-id="${item.id}">DELETE</button>
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
 
-    const discount = 5000;
-    document.querySelector('.summary-total').textContent = totalPrice.toLocaleString();
-    document.querySelector('.summary-discount').textContent = discount.toLocaleString();
-    document.querySelector('.summary-final').textContent = (totalPrice - discount).toLocaleString();
-  };
+          emptyMsg.style.display = 'none';
+        } else {
+          emptyMsg.style.display = 'block';
+        }
+      } catch (err) {
+        console.error('장바구니 로드 실패:', err);
+        emptyMsg.style.display = 'block';
+      }
 
-  document.querySelectorAll('.btn-minus').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const qtyElem = btn.parentElement.querySelector('.quantity');
-      let qty = parseInt(qtyElem.textContent);
-      if (qty > 1) qtyElem.textContent = --qty;
-      updateTotals();
-    });
-  });
+      const updateTotals = () => {
+        let totalPrice = 0;
+        const rows = document.querySelectorAll('.cart-table tbody tr');
 
-  document.querySelectorAll('.btn-plus').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const qtyElem = btn.parentElement.querySelector('.quantity');
-      let qty = parseInt(qtyElem.textContent);
-      qtyElem.textContent = ++qty;
-      updateTotals();
-    });
-  });
+        rows.forEach(row => {
+          const price = parseInt(row.querySelector('.price')?.textContent.replace(/,/g, '') || '0', 10);
+          const qty = parseInt(row.querySelector('.quantity')?.textContent || '0', 10);
+          const itemTotal = price * qty;
 
-  updateTotals();
-
-    <!-- checkbox event -->
-    const checkAll = document.getElementById('check-all');
-    const itemCheckBoxes = document.querySelectorAll('.item-check');
-
-    // 전체 선택 클릭 시 모든 상품 체크박스 변경
-    checkAll.addEventListener('change', () => {
-        itemCheckBoxes.forEach(cb => cb.checked = checkAll.checked);
-    });
-
-    // 개별 체크박스가 변경될 때, 전체 체크 상태도 update
-    itemCheckBoxes.forEach(cb => {
-        cb.addEventListener('change', () => {
-            checkAll.checked = [...itemCheckBoxes].every(item => item.checked);
+          row.querySelector('.total').textContent = itemTotal.toLocaleString();
+          totalPrice += itemTotal;
         });
-    });
-});
 
+        const discount = 5000;
+        summaryTotal.textContent = totalPrice.toLocaleString();
+        summaryDiscount.textContent = discount.toLocaleString();
+        summaryFinal.textContent = (totalPrice - discount).toLocaleString();
+      };
+
+      document.addEventListener('click', e => {
+        if (e.target.classList.contains('btn-minus')) {
+          const qtyElem = e.target.parentElement.querySelector('.quantity');
+          let qty = parseInt(qtyElem.textContent);
+          if (qty > 1) qtyElem.textContent = --qty;
+          updateTotals();
+        }
+
+        if (e.target.classList.contains('btn-plus')) {
+          const qtyElem = e.target.parentElement.querySelector('.quantity');
+          let qty = parseInt(qtyElem.textContent);
+          qtyElem.textContent = ++qty;
+          updateTotals();
+        }
+
+        if (e.target.classList.contains('delete-btn')) {
+          const cartId = e.target.getAttribute('data-id');
+          fetch(`api/cart/remove/${cartId}`, { method: 'DELETE' })
+            .then(() => {
+              e.target.closest('tr').remove();
+              updateTotals();
+            })
+            .catch(err => console.error('삭제 실패:', err));
+        }
+      });
+
+      updateTotals();
+
+      // 체크박스 관련
+      const checkAll = document.getElementById('check-all');
+      document.addEventListener('change', e => {
+        if (e.target.id === 'check-all') {
+          document.querySelectorAll('.item-check').forEach(cb => cb.checked = e.target.checked);
+        } else if (e.target.classList.contains('item-check')) {
+          checkAll.checked = [...document.querySelectorAll('.item-check')].every(cb => cb.checked);
+        }
+      });
+    });
 </script>
 </body>
 </html>

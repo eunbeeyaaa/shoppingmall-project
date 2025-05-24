@@ -7,5 +7,9 @@ import java.util.List;
 
 public interface CartRepository extends JpaRepository<Cart, Long> {
     List<Cart> findByMemberId(Long memberId);
+
     void deleteByMemberIdAndMenuId(Long memberId, Long menuId);
+
+    void deleteByIdAndMemberId(Long cartId, Long memberId); // ✅ cartId+memberId로 삭제
 }
+

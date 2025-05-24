@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface CartService {
     void addItem(Long memberId, Long menuId, int quantity);
-    void removeItem(Long cartId);
+    void removeItem(Long memberId, Long cartId);
     List<Cart> getCartItemsByMember(Long memberId);
 }

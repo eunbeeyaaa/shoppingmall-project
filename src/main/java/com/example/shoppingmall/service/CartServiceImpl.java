@@ -43,8 +43,17 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void removeItem(Long cartId) {
-        cartRepository.deleteById(cartId);
+    public void removeItem(Long memberId, Long cartId) {
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new NoSuchElementException("Menu not found"));
+
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new NoSuchElementException("Member not found"));
+
+        cart.setMember(member);
+        //cart.setId(cartId);
+
+        cartRepository.delete(cart);
     }
 
     @Override

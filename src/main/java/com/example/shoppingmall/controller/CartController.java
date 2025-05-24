@@ -1,13 +1,17 @@
 package com.example.shoppingmall.controller;
 
+import com.example.shoppingmall.entity.Cart;
+import com.example.shoppingmall.entity.Member;
 import com.example.shoppingmall.request.CartRequest;
 import com.example.shoppingmall.service.CartService;
 import com.example.shoppingmall.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -33,8 +37,22 @@ public class CartController {
     }
 
     @DeleteMapping("/remove/{id}")
-    public ResponseEntity<?> removeFromCart(@PathVariable Long id) {
-        cartService.removeItem(id);
+    public ResponseEntity<?> removeFromCart(@PathVariable Long id, HttpSession session) {
+
+        Object sessionMember = session.getAttribute("username");
+        if (sessionMember == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                    "result", "fail",
+                    "message", "로그인 상태가 아닙니다."
+            ));
+        }
+
+        String username = (String) session.getAttribute("username"); // 로그인 시 저장된 사용자명
+
+        Long memberId = memberService.getIdByUsername(username);
+
+        cartService.removeItem(memberId, id);
         return ResponseEntity.ok().body(Map.of("result", "deleted"));
     }
+
 }
