@@ -56,4 +56,34 @@ public class AuthController {
                 "message", "로그인 성공"
         ));
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> me(HttpSession session) {
+        Object sessionMember = session.getAttribute("member");
+
+        if (sessionMember == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                    "result", "fail",
+                    "message", "로그인 상태가 아닙니다."
+            ));
+        }
+
+        Member member = (Member) sessionMember;
+
+        return ResponseEntity.ok(Map.of(
+                "result", "success",
+                "username", member.getUsername(),
+                "name", member.getName()
+        ));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpSession session) {
+        session.invalidate(); // 세션 삭제
+        return ResponseEntity.ok(Map.of(
+                "result", "success",
+                "message", "로그아웃 되었습니다."
+        ));
+    }
+
 }

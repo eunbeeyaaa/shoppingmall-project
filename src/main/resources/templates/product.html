@@ -5,275 +5,43 @@
     <title>NOVA</title>
     <link rel="stylesheet" href="/css/style.css" />
     <style>
-    .product-detail {
-        max-width: 1200px;
-        margin: 50px auto;
-        padding: 30px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 40px;
-        justify-content: center;
-      }
-
-      .product-detail img {
-        width: 400px;
-        max-width: 100%;
-        border-radius: 8px;
-        object-fit: cover;
-      }
-
-  .product-info {
-    flex: 1;
-    min-width: 300px;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-    .product-info h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-      .product-info .price {
-        font-size: 22px;
-        color: black;
-        font-weight: bold;
-      }
-
-      .product-info .desc {
-        font-size: 16px;
-        color: #555;
-        line-height: 1.5;
-      }
-
-  .option-select label {
-    font-weight: bold;
-    display: block;
-    margin: 10px 0 5px;
-  }
-
-  .option-select select {
-    padding: 8px;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-    .total,
-    .cart-btn {
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .option-select select {
-      padding: 5px;
-      margin-left: 10px;
-    }
-
-  .quantity-control {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 10px 0;
-  }
-
-  .quantity-control button {
-    width: 30px;
-    height: 30px;
-    font-size: 18px;
-    background-color: #eee;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .total {
-    font-weight: bold;
-    font-size: 18px;
-    color: #333;
-    margin: 10px 0;
-  }
-
-  .cart-btn {
-    background-color: black;
-    color: #fff;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-
-  .tabs {
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      border-bottom: 1px solid #ddd;
-      padding: 10px 0;
-      margin-bottom: 20px;
-    }
-
-    .tabs a {
-      padding: 10px 20px;
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-    }
-
-    .tabs a:hover {
-      color: #d32f2f;
-    }
-
-    /* 각 섹션 */
-    .product-section {
-      padding: 40px 10%;
-      scroll-margin-top: 70px; /* 탭 높이만큼 */
-      border-bottom: 1px solid #eee;
-    }
-
-    .product-section:last-of-type {
-      border-bottom: none;
-    }
-
-    @media (max-width: 768px) {
-    .product-detail {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .product-info {
-      max-width: 100%;
-    }
-
-
-/* 후기 리스트 wrapper 정렬 */
-
-  #review {
-    font-family: 'Pretendard', sans-serif;
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 30px;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  }
-
-  #review h2 {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    border-left: 4px solid #4f46e5;
-    padding-left: 10px;
-    color: #333;
-  }
-
-  .filter-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 30px;
-  }
-
-  .filter-group > div {
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-  }
-
-  .filter-group input,
-  .filter-group select {
-    padding: 6px 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    min-width: 80px;
-    font-size: 14px;
-  }
-
-  #filter-btn {
-    align-self: flex-end;
-    padding: 8px 16px;
-    background-color: #4f46e5;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-
-  #filter-btn:hover {
-    background-color: #3730a3;
-  }
-
-
-/* 후기 카드 전체 */
-/* 후기 리스트 wrapper */
-#review-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-/* 후기 카드 전체 */
-.review-card {
-  background: #fff;
-  border-bottom: 1px solid #e5e5e5;
-  padding: 20px 0;
-  text-align: left;
-}
-
-.review-card:last-child {
-  border-bottom: none;
-}
-
-/* 후기 헤더 (닉네임 + 날짜 + 태그들) */
-.review-header {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 8px;
-}
-
-.review-header .nickname {
-  font-weight: 600;
-  font-size: 14px;
-  color: #000;
-}
-
-.review-header .info {
-  color: #999;
-  font-size: 13px;
-}
-
-/* 후기 본문 */
-.review-content {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #333;
-  white-space: pre-line;
-  margin-left: 0;
-}
-
-
-
-
-  </style>
+        .product-detail {
+          max-width: 800px;
+          margin: 50px auto;
+          padding: 20px;
+          border: 1px solid #ddd;
+          border-radius: 10px;
+          display: flex;
+          gap: 30px;
+          align-items: flex-start;
+        }
+        .product-detail img {
+          width: 300px;
+          border-radius: 8px;
+        }
+        .product-info {
+          flex: 1;
+        }
+        .product-info h1 {
+          font-size: 24px;
+          margin-bottom: 20px;
+        }
+        .product-info .price {
+          font-size: 20px;
+          color: #d32f2f;
+          margin-bottom: 30px;
+        }
+        .product-info .desc {
+          font-size: 16px;
+          color: #444;
+        }
+    </style>
 </head>
 <body>
 
 <!-- 헤더 -->
 <div th:replace="~{common/header :: header}"></div>
 
-<!-- 상품 상세 카드 -->
 <div class="product-detail">
     <img id="product-image" src="" alt="상품 이미지" />
     <div class="product-info">
@@ -282,246 +50,25 @@
         <div class="desc">
             <p>이 상품은 스타일리시하고 편안한 착용감을 제공합니다. 다양한 코디에 잘 어울려 데일리 아이템으로 추천드립니다.</p>
         </div>
-        <div class="option-select">
-            <label>색상:
-                <select id="color">
-                    <option value="">[필수] 선택</option>
-                    <option value="블랙">블랙</option>
-                    <option value="화이트">화이트</option>
-                </select>
-            </label>
-        </div>
-        <div class="option-select">
-            <label>사이즈:
-                <select id="size">
-                    <option value="">[필수] 선택</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                </select>
-            </label>
-        </div>
-
-        <div class="quantity-control">
-            <button id="minus">-</button>
-            <span id="quantity">1</span>
-            <button id="plus">+</button>
-        </div>
-
-        <div class="total">TOTAL: <span id="totalPrice">0원</span></div>
-        <button id="addToCart" class="cart-btn">장바구니에 담기</button>
     </div>
-</div>
-
-<!-- 탭 -->
-<div class="tabs">
-    <a href="#info">상품 정보</a>
-    <a href="#review">상품 후기</a>
-    <a href="#qna">상품 문의</a>
-    <a href="#delivery">배송/교환/환불</a>
-</div>
-
-<!-- 콘텐츠 -->
-<div id="info" class="product-section">
-    <h2>상품 정보</h2>
-    <p>여기에 상세 상품 정보가 들어갑니다.</p>
-</div>
-<div id="review" class="product-section">
-    <h2>상품 후기</h2>
-
-    <!-- 필터 -->
-    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
-        <div>
-            <label>SIZE</label>
-            <select id="filter-size">
-                <option value="">전체</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-            </select>
-        </div>
-
-        <div>
-            <label>성별</label>
-            <select id="filter-gender">
-                <option value="">전체</option>
-                <option value="여성">여성</option>
-                <option value="남성">남성</option>
-            </select>
-        </div>
-
-        <div>
-            <label>키</label>
-            <input type="number" id="filter-height-min" placeholder="예: 100" style="width: 60px;" />
-            ~
-            <input type="number" id="filter-height-max" placeholder="예: 200" style="width: 60px;" />
-        </div>
-
-        <div>
-            <label>몸무게</label>
-            <input type="number" id="filter-weight-min" placeholder="예: 40" style="width: 60px;" />
-            ~
-            <input type="number" id="filter-weight-max" placeholder="예: 55" style="width: 60px;" />
-        </div>
-
-        <button id="filter-btn" style="padding: 5px 10px;">조회 🔍</button>
-    </div>
-
-    <!-- 후기 리스트 -->
-    <div id="review-list">
-        <!-- 후기들이 여기에 표시돼요 -->
-    </div>
-</div>
-<div id="qna" class="product-section">
-    <h2>상품 문의</h2>
-    <p>문의 내용을 여기에 작성하거나 표시합니다.</p>
-</div>
-<div id="delivery" class="product-section">
-    <h2>배송/교환/환불 안내</h2>
-    <h4>DELIVERY</h4>
-    <p>
-        - 결제일 이후 2~3일 이내 발송합니다. (주말, 공휴일 제외) <br>
-        - 일부 도서/산간 지역에는 배송비 추가 및 배송 지연이 발생 할 수 있습니다.
-    </p>
-    <h4>EXCHANGE & REFUND</h4>
-    <p>
-        - 구매자의 부주의로 인한 상품 파손은 교환 및 환불 불가합니다.<br>
-        - 라벨 제거 시 교환 및 환불 불가합니다. <br>
-        - 단순 변심으로 인한 교환 및 환불의 경우, 구매자님께서 배송비를 부담하셔야합니다.<br>
-        - 상품 수령일로부터 7일 이내로만 교환 및 환불 가능합니다. <br>
-        - 상품 불량 및 오배송으로 인한 교환 및 환불은 배송비는 본사에서 부담합니다. <br>
-        - 본사의 상품이 아닌 경우 교환 및 환불 불가합니다.
-    </p>
 </div>
 
 <!-- 푸터 -->
 <div th:replace="~{common/footer :: footer}"></div>
 
-<!-- JS -->
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const name = decodeURIComponent(params.get('name'));
-  const priceStr = decodeURIComponent(params.get('price'));
-  const price = parseInt(priceStr.replace(/[^0-9]/g, ""));
-  const image = decodeURIComponent(params.get('image'));
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name');
+    const price = params.get('price');
+    const image = params.get('image');
 
-  let quantity = 1;
-
-  if (name && priceStr && image) {
-    document.getElementById("product-name").innerText = name;
-    document.getElementById("product-price").innerText = priceStr;
-    document.getElementById("product-image").src = image;
-    updateTotal();
-  } else {
-    document.querySelector(".product-detail").innerHTML = "<p>상품 정보를 불러올 수 없습니다.</p>";
-  }
-
-  function updateTotal() {
-    document.getElementById('quantity').innerText = quantity;
-    document.getElementById('totalPrice').innerText = (quantity * price).toLocaleString() + '원';
-  }
-
-  document.getElementById('plus').addEventListener('click', () => {
-    quantity++;
-    updateTotal();
-  });
-
-  document.getElementById('minus').addEventListener('click', () => {
-    if (quantity > 1) quantity--;
-    updateTotal();
-  });
-
-  document.getElementById('addToCart').addEventListener('click', () => {
-    const selectedColor = document.getElementById('color').value;
-    const selectedSize = document.getElementById('size').value;
-
-    if (!selectedColor || !selectedSize) {
-      alert("색상과 사이즈를 선택해주세요!");
-      return;
+    if (name && price && image) {
+      document.getElementById("product-name").innerText = decodeURIComponent(name);
+      document.getElementById("product-price").innerText = decodeURIComponent(price);
+      document.getElementById("product-image").src = decodeURIComponent(image);
+    } else {
+      document.querySelector(".product-detail").innerHTML = "<p>상품 정보를 불러올 수 없습니다.</p>";
     }
-
-    const cartItem = {
-      name,
-      image,
-      price,
-      quantity,
-      color: selectedColor,
-      size: selectedSize,
-      totalPrice: quantity * price
-    };
-
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push(cartItem);
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    alert("장바구니에 담겼어요! 🛒");
-  });
-
-  document.querySelectorAll('.tabs a').forEach(link => {
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href');
-      document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-
-
-
-  const reviews = [
-    { name: "닉네임1", date: "2025.05.02", size: "M", gender: "여성", height: 160, weight: 50, content: "옷 핏이 마음에 들어요! X자 어깨 잘 살려줌 아주 굿!" },
-    { name: "닉네임2", date: "2025.05.02", size: "S", gender: "여성", height: 155, weight: 45, content: "생각보다 딱 맞아요. 만족!" },
-    { name: "닉네임3", date: "2025.05.02", size: "L", gender: "남성", height: 178, weight: 70, content: "사이즈 넉넉해서 좋아요." },
-    { name: "닉네임4", date: "2025.05.02", size: "M", gender: "여성", height: 160, weight: 50, content: "핏이 딱 좋고 소재도 부드러워요." }
-  ];
-
-  function renderReviews(filteredReviews) {
-  const list = document.getElementById("review-list");
-  list.innerHTML = "";
-
-  if (filteredReviews.length === 0) {
-    list.innerHTML = "<p>조건에 맞는 후기가 없어요 😢</p>";
-    return;
-  }
-
-  filteredReviews.forEach(r => {
-    const div = document.createElement("div");
-    div.className = "review-card";
-    div.innerHTML = `
-      <div class="review-header">
-        <span class="nickname">${r.name}</span>
-        <span class="tag">${r.date}</span>
-        <span class="tag">사이즈: ${r.size}</span>
-        <span class="tag">${r.gender}</span>
-        <span class="tag">${r.height}cm / ${r.weight}kg</span>
-      </div>
-      <div class="review-content">${r.content}</div>
-    `;
-    list.appendChild(div);
-  });
-}
-
-  function filterReviews() {
-    const size = document.getElementById("filter-size").value;
-    const gender = document.getElementById("filter-gender").value;
-    const heightMin = parseInt(document.getElementById("filter-height-min").value) || 0;
-    const heightMax = parseInt(document.getElementById("filter-height-max").value) || 300;
-    const weightMin = parseInt(document.getElementById("filter-weight-min").value) || 0;
-    const weightMax = parseInt(document.getElementById("filter-weight-max").value) || 300;
-
-    const filtered = reviews.filter(r =>
-      (size === "" || r.size === size) &&
-      (gender === "" || r.gender === gender) &&
-      r.height >= heightMin && r.height <= heightMax &&
-      r.weight >= weightMin && r.weight <= weightMax
-    );
-
-    renderReviews(filtered);
-  }
-
-  document.getElementById("filter-btn").addEventListener("click", filterReviews);
-
-  // 페이지 진입 시 전체 후기 표시
-  renderReviews(reviews);
 </script>
 
 </body>

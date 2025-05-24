@@ -22,6 +22,9 @@ public class Menu {
     @Column(nullable = false, length = 100)
     private String name;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @Column(columnDefinition = "TEXT")
     private String description;
 
