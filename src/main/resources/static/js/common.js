@@ -18,7 +18,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     const logoutBtn = document.getElementById("logout-btn");
 
     try {
-        const res = await fetch("/api/me");
+        const res = await fetch("/api/me", {
+            credentials: "include"
+        });
         if (res.ok) {
             const data = await res.json();
             if (data.result === "success") {

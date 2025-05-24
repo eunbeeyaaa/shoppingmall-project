@@ -50,6 +50,7 @@ public class AuthController {
 
         // 로그인 성공 - 세션 저장
         session.setAttribute("member", member);
+        session.setAttribute("username", member.getUsername());
 
         return ResponseEntity.ok(Map.of(
                 "result", "success",
