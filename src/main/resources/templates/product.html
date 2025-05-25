@@ -795,7 +795,9 @@
           credentials: 'include',
           body: JSON.stringify({
             menuId: [[${product.id}]],
-            quantity: quantity
+            quantity: quantity,
+            color: selectedColor,
+            size: selectedSize
           })
         });
 

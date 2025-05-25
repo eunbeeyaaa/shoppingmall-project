@@ -6,4 +6,6 @@ import lombok.Data;
 public class CartRequest {
     private Long menuId;
     private int quantity;
+    private String color;
+    private String size;
 }
