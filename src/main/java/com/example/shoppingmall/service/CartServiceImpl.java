@@ -27,7 +27,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void addItem(Long memberId, Long menuId, int quantity) {
+    public void addItem(Long memberId, Long menuId, int quantity, String color, String size) {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new NoSuchElementException("Menu not found"));
 
@@ -38,6 +38,8 @@ public class CartServiceImpl implements CartService {
         cart.setMember(member);
         cart.setMenu(menu);
         cart.setQuantity(quantity);
+        cart.setColor(color);
+        cart.setSize(size);
 
         cartRepository.save(cart);
     }

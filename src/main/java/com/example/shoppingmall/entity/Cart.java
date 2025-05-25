@@ -30,4 +30,8 @@ public class Cart {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    // 옵션 정보
+    private String color;   // 색상
+    private String size;    // 사이즈
 }

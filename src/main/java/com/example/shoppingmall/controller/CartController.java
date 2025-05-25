@@ -32,7 +32,7 @@ public class CartController {
         String username = (String) session.getAttribute("username"); // 로그인 시 저장된 사용자명
         Long memberId = memberService.getIdByUsername(username);
 
-        cartService.addItem(memberId, request.getMenuId(), request.getQuantity());
+        cartService.addItem(memberId, request.getMenuId(), request.getQuantity(), request.getColor(), request.getSize());
         return ResponseEntity.ok().body(Map.of("result", "success"));
     }
 
