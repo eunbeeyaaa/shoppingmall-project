@@ -624,3 +624,67 @@ footer {
   text-align: right;
   font-weight: bold;
 }
+
+ /* Q&A 목록 스타일 - 이미지와 비슷하게 수정 */
+            .qna-list {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                margin-top: 20px;
+            }
+
+            .qna-item {
+                padding: 20px 0;
+                border-bottom: 1px solid #e5e5e5;
+                background-color: white;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+                border-top: none;
+            }
+
+            .qna-item:last-child {
+                border-bottom: none;
+            }
+
+            .qna-header {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 12px;
+                font-size: 14px;
+            }
+
+            .qna-author {
+                font-weight: 500;
+                color: #333;
+                font-size: 14px;
+            }
+
+            .qna-date {
+                color: #999;
+                font-size: 13px;
+            }
+
+            .qna-lock {
+                font-size: 14px;
+                color: #999;
+            }
+
+            .qna-content {
+                color: #666;
+                line-height: 1.5;
+                font-size: 14px;
+                margin: 0;
+                padding-left: 0;
+            }
+
+            /* 섹션 제목 스타일 통일 */
+            .product-section h2 {
+                font-size: 18px;
+                font-weight: 600;
+                color: #333;
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #f0f0f0;
+            }
