@@ -1,17 +1,39 @@
 document.addEventListener("DOMContentLoaded", async function () {
     // 검색창 toggle (기존 기능)
-    const searchIcon = document.getElementById("search-icon");
-    const searchContainer = document.getElementById("search-container");
+//    const searchIcon = document.getElementById("search-icon");
+//    const searchContainer = document.getElementById("search-container");
+//
+//    if (searchIcon && searchContainer) {
+//        searchIcon.addEventListener("click", () => {
+//            if (searchContainer.style.display === "none") {
+//                searchContainer.style.display = "block";
+//            } else {
+//                searchContainer.style.display = "none";
+//            }
+//        });
+//    }
+    /* eunseo(25.5.25) 기존 코드로 수정 */
+    const openBtn = document.getElementById('search-open-btn');
+  const popupContainer = document.getElementById('search-container');
 
-    if (searchIcon && searchContainer) {
-        searchIcon.addEventListener("click", () => {
-            if (searchContainer.style.display === "none") {
-                searchContainer.style.display = "block";
-            } else {
-                searchContainer.style.display = "none";
-            }
-        });
-    }
+  if (openBtn && popupContainer) {
+    openBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      fetch('/search')
+      .then(res => res.text())
+      .then(html => {
+        popupContainer.innerHTML = html;
+        popupContainer.style.display = 'block';
+
+        const closeBtn = popupContainer.querySelector('#search-close-btn');
+        if (closeBtn) {
+          closeBtn.addEventListener('click', () => {
+          popupContainer.style.display = 'none';
+          });
+        }
+      });
+    });
+  }
 
     // 로그인 사용자 정보 출력
     const headerUser = document.getElementById("header-user");
