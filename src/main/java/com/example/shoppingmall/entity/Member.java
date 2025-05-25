@@ -30,6 +30,9 @@ public class Member {
     @Column(nullable = false, unique = true, length = 50)
     private String email;
 
+    @Column(nullable = false, length = 20)
+    private String phone;
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

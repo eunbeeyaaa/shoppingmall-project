@@ -1,8 +1,15 @@
 package com.example.shoppingmall.controller;
 
 import com.example.shoppingmall.entity.Menu;
+import com.example.shoppingmall.entity.Qna;
+import com.example.shoppingmall.entity.Review;
+import com.example.shoppingmall.request.QnaRequest;
+import com.example.shoppingmall.request.ReviewRequest;
 import com.example.shoppingmall.service.ProductService;
+import com.example.shoppingmall.service.QnaService;
+import com.example.shoppingmall.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +21,13 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final ReviewService reviewService;
+    private final QnaService qnaService;
 
-    @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, ReviewService reviewService, QnaService qnaService) {
         this.productService = productService;
+        this.reviewService = reviewService;
+        this.qnaService = qnaService;
     }
 
 //    @GetMapping("/new")
@@ -88,6 +98,12 @@ public class ProductController {
     public String showProductDetail(@PathVariable Long id, Model model) {
         Menu menu = productService.getProductById(id);
         model.addAttribute("product", menu);
+
+        List<Review> reviews = reviewService.getReviewsByMenu(id);
+        List<Qna> qnas = qnaService.getQnasByMenu(id);
+        model.addAttribute("reviews", reviews);
+        model.addAttribute("qnas", qnas);
+
         return "product"; // templates/product.html
     }
 
@@ -99,5 +115,19 @@ public class ProductController {
 
         // 뷰 이름 통합: ex) products/category.html (추천!)
         return "products/category";
+    }
+
+    @PostMapping("/review")
+    @ResponseBody
+    public ResponseEntity<?> createReview(@RequestBody ReviewRequest request) {
+        reviewService.saveReview(request);
+        return ResponseEntity.ok("리뷰 등록 완료!");
+    }
+
+    @PostMapping("/qna")
+    @ResponseBody
+    public ResponseEntity<?> createQna(@RequestBody QnaRequest request) {
+        qnaService.saveQna(request);
+        return ResponseEntity.ok("문의 등록 완료!");
     }
 }

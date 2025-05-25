@@ -55,7 +55,7 @@
     document.addEventListener('DOMContentLoaded', async () => {
       // 로그인 여부를 우선 확인
       try {
-        const loginRes = await fetch('/api/me');
+        const loginRes = await fetch('/api/me', { credentials: 'include' });
         const loginData = await loginRes.json();
 
         if (loginData.result !== 'success') {
